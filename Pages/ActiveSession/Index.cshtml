@@ -1,0 +1,25 @@
+﻿@page "{Id}"
+@model ProjectTimer.Pages.ActiveSession.IndexModel
+@{
+}
+<h1>Pågående session</h1>
+    <h5>Aktivera projekttimer:</h5>
+    <ul class="list-group list-group-horizontal">
+        <form method="post">
+            @foreach(var item in @Model.projectList)
+            {
+            <li class="list-group-item">
+            <button type="submit" class="btn btn-outline-success" value="@item.Id" name="projectId">
+                    @item.Name
+                 </button>
+            </li>
+            }
+        </form>
+        
+        
+    </ul>
+
+@if (Model.TimeElapsed != null)
+{
+    <div id="time"></div> <p>Total tid: @Model.TimeElapsed</p>
+}

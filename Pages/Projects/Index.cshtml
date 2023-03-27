@@ -1,0 +1,32 @@
+﻿@page
+@model ProjectTimer.Pages.Projects.IndexModel
+@{
+}
+<h4>Aktiva projekt</h4>
+@if (Model.projectList != null)
+{
+    <select class="form-select" aria-label="Default select example">
+            <option selected>Lägg till projekt</option>
+                @foreach(var item in @Model.projectList)
+                {
+                    int selectCount = 1;
+                    <option value="selectCount">@item.Name</option>
+                    selectCount = selectCount + 1;
+                }
+        </select>
+}
+<br />
+<hr />
+<br />
+
+
+<h4>Lägg till projekt</h4>  
+<form method="post">
+    <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label"></label>
+        <input type="text" class="form-control" asp-for="Name" >
+    </div>
+    <div class="mb-3">
+            <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
+    </div>
+</form>
