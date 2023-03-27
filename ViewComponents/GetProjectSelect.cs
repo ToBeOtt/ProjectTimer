@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjectTimer.Entities;
 using ProjectTimer.Services.Projects;
 
@@ -13,13 +14,15 @@ namespace ProjectTimer.ViewComponents
             _projectService = projectService;
         }
 
+
         public IViewComponentResult Invoke()
         {
             List<Project> projectList = new List<Project>();
             var projects = _projectService.GetProjects();
             projectList.AddRange(projects);
-            return View(projectList);   
+            return View(projectList);
         }
+
 
     }
 }

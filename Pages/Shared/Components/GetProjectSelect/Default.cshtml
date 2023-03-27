@@ -1,0 +1,19 @@
+﻿@using ProjectTimer.Entities;
+@model List<Project>
+@if (Model != null)
+{
+    <form method="post" asp-page-handler="ActivateProjectTimer">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Lägg till projekt</option>
+            @foreach (var user in Model)
+            {
+                int selectCount = 1;
+                <option value="@user.Id">@user.Name</option>
+                selectCount = selectCount + 1;
+            }
+        </select>
+             <button type="submit" class="btn btn-outline-success">
+                Hämta projekt-timer
+            </button>
+    </form>
+}

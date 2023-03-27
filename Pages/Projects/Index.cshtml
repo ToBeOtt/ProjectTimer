@@ -5,7 +5,7 @@
 <h4>Aktiva projekt</h4>
 @if (Model.projectList != null)
 {
-    <select class="form-select" aria-label="Default select example">
+         <select class="form-select" aria-label="Default select example">
             <option selected>Lägg till projekt</option>
                 @foreach(var item in @Model.projectList)
                 {
@@ -14,6 +14,7 @@
                     selectCount = selectCount + 1;
                 }
         </select>
+   
 }
 <br />
 <hr />

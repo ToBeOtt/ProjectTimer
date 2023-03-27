@@ -4,82 +4,86 @@
 @{
 }
 
-@*Påbörjar ny session*@
-@if (HttpContext.Features.Get<Microsoft.AspNetCore.Http.Features.ISessionFeature>()?.Session != null)
-{
-    <h4>Session</h4>
-    <form method="post" asp-page-handler="startSession">
-        <div class="mb-3">
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+      @if (HttpContext.Features.Get<Microsoft.AspNetCore.Http.Features.ISessionFeature>()?.Session != null)
+        {
+        <form method="post" asp-page-handler="startSession">
             <label for="formGroupExampleInput" class="form-label"></label>
             <input type="hidden" class="form-control">
-        </div>
-    <div class="mb-3">
             <button type="submit" class="btn btn-outline-success">
                 Starta session
-               </button>
-        </div>
-    </form> 
-}
-@if (@Model.sessionOnGoing != null)
-{
-    <p>@Model.sessionOnGoing</p>
-}
-
-
-    @*Visar pågående session*@
-<form method="post" asp-page-handler="viewSession">
-<div class="mb-3">
-        <button type="submit" class="btn btn-outline-success">
-        Visa pågående session
-        </button>
-</div>
-</form>
-
-@*Avslutar pågående session*@
-<form method="post" asp-page-handler="DeleteSession">
-    <div class="mb-3">
-        <button type="submit" class="btn btn-outline-success">
-            Avsluta session
-        </button>
-    </div>
-</form>
-}
-
-@if (@Model.viewSessionId > 0)
-{
-    <div class="text-center">
-        <p>
-            Current Session ID: @Model.viewSessionId)
-        </p>
-        @Component.InvokeAsync(nameof(GetProjectSelect));
-    </div>
-}
-
-
-@*
-@if(HttpContext.Features.Get<Microsoft.AspNetCore.Http.Features.ISessionFeature>()?.Session != null)
-{
-
-}
-    <h4>Aktiva projekt</h4>
-@if (Model.projectList != null)
-{
-    <select class="form-select" aria-label="Default select example">
-        <option selected>Lägg till projekt</option>
-        @foreach (var item in @Model.projectList)
-        {
-            int selectCount = 1;
-            <option value="selectCount">@item.Name</option>
-            selectCount = selectCount + 1;
+                </button>
+        </form> 
         }
-    </select>
+    @if (@Model.sessionOnGoing != null)
+    {
+        <p>@Model.sessionOnGoing</p>
+    }
+    </li>
+
+@if (HttpContext.Session.GetString("_Id") != null)
+    {
+        <li class="nav-item">
+            <form method="post" asp-page-handler="viewSession">
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-outline-success">
+                        Visa pågående session
+                    </button>
+                </div>
+            </form>
+        </li>
+        <li class="nav-item">
+            @*Avslutar pågående session*@
+    <form method="post" asp-page-handler="DeleteSession">
+        <div class="mb-3">
+            <button type="submit" class="btn btn-outline-success">
+                Avsluta session
+            </button>
+        </div>
+    </form>
+      </li>
+      }
+    </ul>
+@if (HttpContext.Session.GetString("_Id") != null)
+{
+    <h5 style="text-align: center;"> Aktivera projekt-timer</h5>
+    <ul class="nav justify-content-center">
+          <li class="nav-item">
+                <form method="post" asp-page-handler="ActivateProjectTimer">
+                <select class="form-select" name="projectName">
+                        <option selected>Lägg till projekt</option>
+                        @foreach (var project in Model.ProjectList)
+                        {
+                            int selectCount = 1;
+                        <option value="@project.Name">@project.Name</option>
+                            selectCount = selectCount + 1;
+                        }
+                    </select>
+                     <button type="submit" class="btn btn-outline-success">
+                        Hämta projekt-timer
+                    </button>
+                </form>
+          </li>
+    </ul>
+
+    if (@Model.ProjectTimeractivated)
+    {
+        @await Component.InvokeAsync("AddProjectTimer", new {Model.pId, Model.sId })
+        
+    }
 }
-    
-*@
+
+
+
+
+
+
+
+
 
 
 
 
     
-
 

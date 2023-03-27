@@ -24,6 +24,13 @@ namespace ProjectTimer.Services.Projects
             return _context.Projects.Where(p => p.Id == id).FirstOrDefault();
         }
 
+        public int GetProjectByName(string projectName)
+        {
+            var result = _context.Projects.Where(p => p.Name == projectName).FirstOrDefault();
+            int projectId = result.Id;
+            return projectId;
+        }
+
         public ICollection<Project> GetProjects()
         {
             return _context.Projects.OrderBy(h => h.Id).ToList();

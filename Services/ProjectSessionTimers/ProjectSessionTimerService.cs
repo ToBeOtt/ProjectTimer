@@ -13,8 +13,8 @@ namespace ProjectTimer.Services.ProjectSessionTimers
             _context = context;
         }
 
-        public bool CreateProjectSessionTimer(ProjectSessionTimer projectSessionTimer, 
-            int sessionId, int projectId)
+        public ProjectSessionTimer CreateProjectSessionTimer(ProjectSessionTimer projectSessionTimer, 
+            int projectId, int sessionId)
         {
             var session = _context.Sessions.Where(h => h.Id == sessionId).FirstOrDefault();
             projectSessionTimer.Session = session;
@@ -22,7 +22,8 @@ namespace ProjectTimer.Services.ProjectSessionTimers
             projectSessionTimer.Project = project;
 
             _context.ProjectSessionTimers.Add(projectSessionTimer);
-            return Save();
+            Save();
+            return projectSessionTimer;
         }
         public bool Save()
         {

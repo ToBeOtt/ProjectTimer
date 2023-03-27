@@ -6,7 +6,10 @@ using Newtonsoft.Json;
 using ProjectTimer.Entities;
 using ProjectTimer.Services.Projects;
 using ProjectTimer.Services.Sessions;
+using ProjectTimer.ViewComponents;
+using System.ComponentModel;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 
 namespace ProjectTimer.Pages.Sessions
 {
@@ -27,7 +30,8 @@ namespace ProjectTimer.Pages.Sessions
         [BindProperty]
         public string sessionOnGoing { get; set; }
 
-
+        [BindProperty]
+        public List<Project> ProjectList { get; set; } = new List<Project>();
         public async Task<IActionResult> OnPostStartSession()
         {
             Session sessiontimer = new Session(DateTime.Now);
@@ -44,6 +48,8 @@ namespace ProjectTimer.Pages.Sessions
                 var id = HttpContext.Session.GetInt32(SessionKeyId).ToString();
                 sessionOnGoing = "Det finns redan en pågående session.";
             }
+            var projects = _projectService.GetProjects();
+            ProjectList.AddRange(projects);
             return Page();
         }
 
@@ -59,7 +65,30 @@ namespace ProjectTimer.Pages.Sessions
         {
             HttpContext.Session.Remove(IndexModel.SessionKeyId);
         }
+   
+        [BindProperty]
+        public bool ProjectTimeractivated { get; set; }
+        [BindProperty]
+        public int pId { get; set; }
+        [BindProperty]
+        public int sId { get; set; }
+        [BindProperty]
+        public int ProjectName { get; set; }
 
+        public void OnPostActivateProjectTimer(string projectName)
+        {
+            pId = _projectService.GetProjectByName(projectName);
+            var sessionID = HttpContext.Session.GetInt32(IndexModel.SessionKeyId);
+            sId = Convert.ToInt32(sessionID);
+            ProjectTimeractivated = true;
+        }
+
+        public void OnPostCloseProjectTimer(string projectName)
+        {
+            //Avslutar projekttimer.
+            // projekt-timer active == false => klocka syns inte
+            // det går att välja projekt igen.
+        }
 
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repositories\\SharedLiving\\ProjectTimer\\ProjectTimer.csproj": {}
+    "D:\\Repositories\\ProjectTimer\\ProjectTimer.csproj": {}
   },
   "projects": {
-    "D:\\Repositories\\SharedLiving\\ProjectTimer\\ProjectTimer.csproj": {
+    "D:\\Repositories\\ProjectTimer\\ProjectTimer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repositories\\SharedLiving\\ProjectTimer\\ProjectTimer.csproj",
+        "projectUniqueName": "D:\\Repositories\\ProjectTimer\\ProjectTimer.csproj",
         "projectName": "ProjectTimer",
-        "projectPath": "D:\\Repositories\\SharedLiving\\ProjectTimer\\ProjectTimer.csproj",
+        "projectPath": "D:\\Repositories\\ProjectTimer\\ProjectTimer.csproj",
         "packagesPath": "C:\\Users\\tacri\\.nuget\\packages\\",
-        "outputPath": "D:\\Repositories\\SharedLiving\\ProjectTimer\\obj\\",
+        "outputPath": "D:\\Repositories\\ProjectTimer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

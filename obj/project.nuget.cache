@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vNq7KXnS7aY9guM6qGlE5wiQDKQj4BUYsd2QCqJtNpuKGEIRy5mCUlXKuhmjBG4H/yXhLkIyR1k8BWbjE+KsrQ==",
+  "dgSpecHash": "7+XQ2VPXj0ASozCZ2uF+Ly1kfjMuRGk9JY9nwJOpmxdPf3bE6nXezrTotpKN82RE9Wb2c6h5CHroL3bInzK4BQ==",
   "success": true,
-  "projectFilePath": "D:\\Repositories\\SharedLiving\\ProjectTimer\\ProjectTimer.csproj",
+  "projectFilePath": "D:\\Repositories\\ProjectTimer\\ProjectTimer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tacri\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\tacri\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
