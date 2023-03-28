@@ -42,7 +42,7 @@ namespace ProjectTimer.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("ProjectTimer.Entities.ProjectSessionTimer", b =>
+            modelBuilder.Entity("ProjectTimer.Entities.SavedProjectTime", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,28 +50,21 @@ namespace ProjectTimer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Ended")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SessionId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Started")
-                        .HasColumnType("datetime2");
+                    b.Property<double>("SavedTime")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("SessionId");
-
-                    b.ToTable("ProjectSessionTimers");
+                    b.ToTable("SavedProjectTimes");
                 });
 
             modelBuilder.Entity("ProjectTimer.Entities.Session", b =>
@@ -96,16 +89,75 @@ namespace ProjectTimer.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("ProjectTimer.Entities.ProjectSessionTimer", b =>
+            modelBuilder.Entity("ProjectTimer.Entities.SessionProject", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProjectId", "SessionId");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("SessionProject");
+                });
+
+            modelBuilder.Entity("ProjectTimer.Entities.TimerClock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Ended")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SessionProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SessionProjectProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SessionProjectSessionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Started")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionProjectProjectId", "SessionProjectSessionId");
+
+                    b.ToTable("TimerClocks");
+                });
+
+            modelBuilder.Entity("ProjectTimer.Entities.SavedProjectTime", b =>
                 {
                     b.HasOne("ProjectTimer.Entities.Project", "Project")
-                        .WithMany("ProjectSessionTimers")
+                        .WithMany("SavedProjectTime")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("ProjectTimer.Entities.SessionProject", b =>
+                {
+                    b.HasOne("ProjectTimer.Entities.Project", "Project")
+                        .WithMany("SessionProject")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjectTimer.Entities.Session", "Session")
-                        .WithMany("ProjectSessionTimers")
+                        .WithMany("SessionProject")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -115,14 +167,32 @@ namespace ProjectTimer.Migrations
                     b.Navigation("Session");
                 });
 
+            modelBuilder.Entity("ProjectTimer.Entities.TimerClock", b =>
+                {
+                    b.HasOne("ProjectTimer.Entities.SessionProject", "SessionProject")
+                        .WithMany("TimerClock")
+                        .HasForeignKey("SessionProjectProjectId", "SessionProjectSessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SessionProject");
+                });
+
             modelBuilder.Entity("ProjectTimer.Entities.Project", b =>
                 {
-                    b.Navigation("ProjectSessionTimers");
+                    b.Navigation("SavedProjectTime");
+
+                    b.Navigation("SessionProject");
                 });
 
             modelBuilder.Entity("ProjectTimer.Entities.Session", b =>
                 {
-                    b.Navigation("ProjectSessionTimers");
+                    b.Navigation("SessionProject");
+                });
+
+            modelBuilder.Entity("ProjectTimer.Entities.SessionProject", b =>
+                {
+                    b.Navigation("TimerClock");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,18 +13,16 @@ namespace ProjectTimer.Services.ProjectSessionTimers
             _context = context;
         }
 
-        public ProjectSessionTimer CreateProjectSessionTimer(ProjectSessionTimer projectSessionTimer, 
-            int projectId, int sessionId)
-        {
-            var session = _context.Sessions.Where(h => h.Id == sessionId).FirstOrDefault();
-            projectSessionTimer.Session = session;
-            var project = _context.Projects.Where(h => h.Id == projectId).FirstOrDefault();
-            projectSessionTimer.Project = project;
+        //public SessionProjectTimerClock CreateProjectSessionTimer(int projectId, int sessionId)
+        //{
+        //    var session = _context.Sessions.Where(h => h.Id == sessionId).FirstOrDefault();
+        //    var project = _context.Projects.Where(h => h.Id == projectId).FirstOrDefault();
 
-            _context.ProjectSessionTimers.Add(projectSessionTimer);
-            Save();
-            return projectSessionTimer;
-        }
+        //    SessionProjectTimerClock projectSessionTimer = new SessionProjectTimer(project, session, DateTime.Now);
+        //    _context.ProjectSessionTimers.Add(projectSessionTimer);
+        //    Save();
+        //    return projectSessionTimer;
+        //}
         public bool Save()
         {
             var saved = _context.SaveChanges();

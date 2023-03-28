@@ -15,13 +15,12 @@ namespace ProjectTimer.ViewComponents
             _projectSessionTimerService = projectSessionTimerService;
         }
 
-        public IViewComponentResult Invoke(int projectId, int sessionId)
-        {
-            ProjectSessionTimer projectSessionTimer = new ProjectSessionTimer();
-            var result = _projectSessionTimerService.CreateProjectSessionTimer(projectSessionTimer,
-                projectId, sessionId);
-            return View(result);
-        }
+        //public IViewComponentResult Invoke(int projectId, int sessionId)
+        //{
+        //    SessionProjectTimerClock projectSessionTimer = new SessionProjectTimerClock();
+        //    var result = _projectSessionTimerService.CreateProjectSessionTimer(projectId, sessionId);
+        //    return View(result);
+        //}
 
     }
 }

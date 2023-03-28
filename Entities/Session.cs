@@ -6,7 +6,7 @@
         public decimal TotalTime { get; set; }
         public DateTime Started { get; set; }
         public DateTime Ended { get; set; }
-        public ICollection<ProjectSessionTimer> ProjectSessionTimers { get; set; }
+        public ICollection<SessionProject> SessionProject { get; set; }
 
         public Session() { }
         public Session(DateTime started)

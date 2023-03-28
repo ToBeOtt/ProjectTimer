@@ -53,13 +53,13 @@ namespace ProjectTimer.Pages.ActiveSession
         [BindProperty]
         public bool ProjectTimerStarted { get; set; }
 
-        public void OnPost(int projectId)
-        {
-            ProjectTimerStarted = true;
-            var currentProject = _projectService.GetProjectById(projectId);
-            var currentSession = OnGoingSession;
-            ProjectSessionTimer pst = new ProjectSessionTimer(currentProject, currentSession, DateTime.Now);
-            _projectSessionTimerService.CreateProjectSessionTimer(pst, currentSession.Id, projectId);
-        }
+        //public void OnPost(int projectId)
+        //{
+        //    ProjectTimerStarted = true;
+        //    var currentProject = _projectService.GetProjectById(projectId);
+        //    var currentSession = OnGoingSession;
+        //    //SessionProjectTimerClock pst = new SessionProjectTimer(currentProject, currentSession, DateTime.Now);
+        //    _projectSessionTimerService.CreateProjectSessionTimer(currentSession.Id, projectId);
+        //}
     }
 }
