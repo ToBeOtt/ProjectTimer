@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Repositories\ProjectTimer
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Repositories/ProjectTimer/Pages/ActiveSessions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWN0aXZlU2Vzc2lvbnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Repositories/ProjectTimer/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -26,14 +30,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Repositories/ProjectTimer/Pages/Sessions/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Vzc2lvbnNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Repositories/ProjectTimer/Pages/Shared/Components/AddProjectTimer/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcQWRkUHJvamVjdFRpbWVyXERlZmF1bHQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Repositories/ProjectTimer/Pages/Shared/Components/GetProjectSelect/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcR2V0UHJvamVjdFNlbGVjdFxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Repositories/ProjectTimer/Pages/Shared/_ValidationScriptsPartial.cshtml]

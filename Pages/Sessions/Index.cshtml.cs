@@ -7,15 +7,19 @@ using ProjectTimer.Entities;
 using ProjectTimer.Services.Clocks;
 using ProjectTimer.Services.Projects;
 using ProjectTimer.Services.Sessions;
-using ProjectTimer.ViewComponents;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 namespace ProjectTimer.Pages.Sessions
 {
+    [BindProperties]
     public class IndexModel : PageModel
     {
+        // Deklarerar ny session-key
+        public const string SessionKeyId = "_Id";
+
         private readonly ProjectService _projectService;
         private readonly ClockService _clockService;
 
@@ -25,71 +29,57 @@ namespace ProjectTimer.Pages.Sessions
             _clockService = clockService;
         }
 
-        [BindProperty]
         public List<Project> ProjectList { get; set; } = new List<Project>();
-
-        public async Task<IActionResult> OnGet()
+        public List<Clock> SummaryOfSessionClocks { get; set; } = new List<Clock>();
+        public async Task<IActionResult> OnGetAsync()
         {
+            //If scrolling from other pages while session is ongoing:
+            if(HttpContext.Session.GetString("_Id") != null)
+            {
+                var stringId = HttpContext.Session.GetInt32(IndexModel.SessionKeyId);
+                int Id = Convert.ToInt32(stringId);
+                Clock = _clockService.GetClockById(Id);
+            }
+
+
+                var result = _clockService.GetClockByDate();
+                SummaryOfSessionClocks.AddRange(result);
+
+
+            // then..
             var projects = _projectService.GetProjects();
             ProjectList.AddRange(projects);
             return Page();
         }
+
         public Clock Clock { get; set; }
+        public string projectClockActive { get; set; }
         public async Task<IActionResult> OnPostStartClock(int pID, string taskDescription)
         {
             Clock = _clockService.CreateClock(pID, taskDescription);
+            // Create a new session if session is empty, else return session ongoing.
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetString
+                (SessionKeyId)))
+            {
+                HttpContext.Session.SetInt32(SessionKeyId, Clock.Id);
+            }
+            else
+            {
+                var id = HttpContext.Session.GetInt32(SessionKeyId).ToString();
+                projectClockActive = "Det finns redan en pågående session.";
+                // Add later: would you like to end current session?
+            }
             return Page();
         }
 
-
-        //[BindProperty]
-        //public string sessionOnGoing { get; set; }
-
-        //[BindProperty]
-        //public List<Project> ProjectList { get; set; } = new List<Project>();
-        //public async Task<IActionResult> OnPostStartSession()
-        //{
-        //    var projects = _projectService.GetProjects();
-        //    ProjectList.AddRange(projects);
-        //    return Page();
-        //}
-
-        //[BindProperty]
-        //public int viewSessionId { get; set;}
-        //public void OnPostViewSession()
-        //{
-        //   var result = HttpContext.Session.GetInt32(IndexModel.SessionKeyId);
-        //   viewSessionId = Convert.ToInt32(result);
-        //}
-
-        //public void OnPostDeleteSession()
-        //{
-        //    HttpContext.Session.Remove(IndexModel.SessionKeyId);
-        //}
-
-        //[BindProperty]
-        //public bool ProjectTimeractivated { get; set; }
-        //[BindProperty]
-        //public int pId { get; set; }
-        //[BindProperty]
-        //public int sId { get; set; }
-        //[BindProperty]
-        //public int ProjectName { get; set; }
-
-        //public void OnPostActivateProjectTimer(string projectName)
-        //{
-        //    pId = _projectService.GetProjectByName(projectName);
-        //    var sessionID = HttpContext.Session.GetInt32(IndexModel.SessionKeyId);
-        //    sId = Convert.ToInt32(sessionID);
-        //    ProjectTimeractivated = true;
-        //}
-
-        //public void OnPostCloseProjectTimer(string projectName)
-        //{
-        //    //Avslutar projekttimer.
-        //    // projekt-timer active == false => klocka syns inte
-        //    // det går att välja projekt igen.
-        //}
+        // Updates clock with end-datetime and then remove current session. 
+        public async Task<IActionResult> OnPostEndClock(int clockId)
+        {
+            _clockService.EndClock(clockId);
+            HttpContext.Session.Remove(SessionKeyId);
+            return RedirectToPage("index");
+        }
+        
 
     }
 }

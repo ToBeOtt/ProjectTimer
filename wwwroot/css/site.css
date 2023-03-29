@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.clockSection {
+    display: grid;
+    justify-content:center;
+}

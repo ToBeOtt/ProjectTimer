@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using ProjectTimer.Data;
 using ProjectTimer.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Data;
 
 namespace ProjectTimer.Services.Clocks
 {
@@ -13,6 +16,19 @@ namespace ProjectTimer.Services.Clocks
             _context = context;
         }
 
+        public Clock GetClockById(int id)
+        {
+            return _context.Clocks.Where(c => c.Id == id).FirstOrDefault();
+        }
+
+        public ICollection<Clock> GetClockByDate()
+        {
+            var start = DateTime.Now.Date;
+            var end = start.AddDays(1);
+
+            return _context.Clocks.OrderBy(c => c.Project.Name).Where(c => c.Started >= start && c.Started < end).ToList();
+        }
+
         public Clock CreateClock(int projectId, string taskDescription)
         {
             Clock clock = new Clock(taskDescription, DateTime.Now);
@@ -22,6 +38,14 @@ namespace ProjectTimer.Services.Clocks
             _context.Clocks.Add(clock);
             Save();
             return clock;
+        }
+
+        public bool EndClock(int id)
+        {
+            var clock = _context.Clocks.Where(c => c.Id == id).FirstOrDefault();
+            clock.Ended = DateTime.Now;
+            _context.Clocks.Update(clock);
+            return Save();
         }
         public bool Save()
         {
