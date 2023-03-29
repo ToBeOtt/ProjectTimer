@@ -1,0 +1,34 @@
+﻿body {
+}
+
+/*Project related*/
+#projectsCollection {
+    display: flex;
+    flex-direction: row;
+}
+
+.trashbin {
+    display: inline-block;
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+#leftGutter {
+    display: grid;
+    justify-content: center;
+}
+
+#rightGutter {
+    display: grid;
+    justify-content: left;
+}
+
+.svgs {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 1rem;
+}
+
+.nav-item {
+    list-style-type: none
+}

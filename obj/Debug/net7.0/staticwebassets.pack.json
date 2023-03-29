@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\ProjectTimer.bundle.scp.css"
     },
     {
+      "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\projectpages.css",
+      "PackagePath": "staticwebassets\\css\\projectpages.css"
+    },
+    {
+      "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\sessionspages.css",
+      "PackagePath": "staticwebassets\\css\\sessionspages.css"
+    },
+    {
       "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

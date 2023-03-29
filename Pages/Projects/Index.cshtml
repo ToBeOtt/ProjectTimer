@@ -2,35 +2,41 @@
 @model ProjectTimer.Pages.Projects.IndexModel
 @{
 }
-<div class="ContentSection">
-<h4>Aktiva projekt</h4>
-@if (Model.projectList != null)
-{
-<form method="post" asp-page-handler="DeleteProject">
-    @foreach(var item in @Model.projectList)
-    {
-        <li class="nav-item">
-            <h6>@item.Name</h6>
-            <input type="submit" src="~/images/trashcan.svg" name="projectChoice" value="@item.Id">
-        </li>
-        <br/>
-    } 
-  </form>
-}   
+<link rel="stylesheet" href="~/css/projectpages.css" asp-append-version="true" />
 
-<br />
-<hr />
-<br />
-
-
-<h4>Lägg till projekt</h4>  
-<form method="post">
-    <div class="mb-3">
-        <label for="formGroupExampleInput" class="form-label"></label>
-        <input type="text" class="form-control" value="" asp-for="Name" >
+<div class="container px-4">
+  <div class="row gx-5">
+    <div class="col">
+     <div class="p-3" id="leftGutter">
+         <h4>Aktiva projekt</h4>
+            @if (Model.projectList != null)
+            {
+            <form method="post" asp-page-handler="DeleteProject">
+                @foreach(var item in @Model.projectList)
+                {
+                    <li class="nav-item" id="projectsCollection">
+                        <h6>@item.Name</h6>
+                        <img type="submit" src="~/images/trashcan.svg" class="trashbin" alt="..." name="projectChoice" value="@item.Id">
+                    </li>
+                    <br/>
+                } 
+                </form>
+            }   
+     </div>
     </div>
-    <div class="mb-3">
-            <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
+    <div class="col">
+            <h4>Lägg till projekt</h4>  
+            <form method="post">
+                <div class="mb-3" id="rightGutter">
+                    <label for="formGroupExampleInput" class="form-label"></label>
+                    <input type="text" class="form-control" value="" asp-for="Name" >
+                </div>
+                <div class="mb-3">
+                        <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
+                </div>
+            </form>
+        </div>
+      </div>
     </div>
-</form>
-</div>
+  </div>
+

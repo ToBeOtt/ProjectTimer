@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xHBsCNH+5WppJ2cC4PsGTx1mfTRsvU+lw85HvUkl1jc=",
+  "Hash": "XxLAzo08BLZvK29pJkEPcXukmbBNXVUHqX09CiJrRfU=",
   "Source": "ProjectTimer",
   "BasePath": "_content/ProjectTimer",
   "Mode": "Default",
@@ -49,6 +49,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Repositories\\ProjectTimer\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ProjectTimer.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\projectpages.css",
+      "SourceId": "ProjectTimer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Repositories\\ProjectTimer\\wwwroot\\",
+      "BasePath": "_content/ProjectTimer",
+      "RelativePath": "css/projectpages.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\projectpages.css"
+    },
+    {
+      "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\sessionspages.css",
+      "SourceId": "ProjectTimer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Repositories\\ProjectTimer\\wwwroot\\",
+      "BasePath": "_content/ProjectTimer",
+      "RelativePath": "css/sessionspages.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\sessionspages.css"
     },
     {
       "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\site.css",
