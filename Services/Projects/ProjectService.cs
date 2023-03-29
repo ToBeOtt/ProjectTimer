@@ -35,6 +35,13 @@ namespace ProjectTimer.Services.Projects
         {
             return _context.Projects.OrderBy(h => h.Id).ToList();
         }
+
+        public bool DeleteProject(Project project)
+        {
+            _context.Projects.Remove(project);
+            return Save();
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

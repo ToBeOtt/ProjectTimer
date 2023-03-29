@@ -21,7 +21,39 @@ body {
   margin-bottom: 60px;
 }
 
+.btn {
+    margin: 5px;
+}
+
+.card {
+    display: grid;
+    text-align: center;
+}
+
+#newProjectForm {
+    width: 20vw;
+}
+
 .clockSection {
     display: grid;
-    justify-content:center;
+    justify-content: center;
+}
+
+#projectDescriptionTextarea {
+    width: 20vw;
+}
+
+.ContentSection {
+    display: grid;
+    justify-items: center;
+}
+
+.svgs {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 1rem;
+}
+
+.nav-item {
+    list-style-type: none
 }

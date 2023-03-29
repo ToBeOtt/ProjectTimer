@@ -2,43 +2,73 @@
 @model ProjectTimer.Pages.Sessions.IndexModel
 @{
 }
+
 @if (HttpContext.Session.GetString("_Id") == null) 
 {
+<div class="ContentSection">
 <h5 style="text-align: center;">Tryck på ett projekt för att starta timer</h5>
 <br />
     <form method="post" asp-page-handler="StartClock">
     <h6 style="text-align: center;">Lägg till arbetsbeskrivning</h6>
     <div class="mb-3">
-        <textarea class="form-control" name="taskDescription" rows="3"></textarea>
+            <textarea class="form-control" id="projectDescriptionTextarea" name="taskDescription" rows="4"></textarea>
     </div>
 
+            <br><hr> <br>  @*Ta detta till CSS-site.css senare vid refaktorering*@
+
+    <h6 style="text-align: center;">Dina aktiva projekt</h6>
     <ul class="nav justify-content-center">
         @foreach (var project in Model.ProjectList)
         {
         <li class="nav-item">
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-outline-success" name="pID" value="@project.Id">
-                        @project.Name
-                    </button>
-                </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-outline-success" name="pID" value="@project.Id">
+                    @project.Name
+                </button>
+            </div>
         </li> 
         }
     </ul>
 </form>
+
+        <br><hr> <br>
+
+        <form method="post" asp-page-handler="SumAll">
+            <button type="submit" class="btn btn-outline-primary btn-lg" name="SumAll">
+                Summera alla timers
+            </button>       
+        </form>
+
+        <br><hr> <br>
 
     @if (Model.SummaryOfSessionClocks != null)
     {
         <h5>Dagens avslutade timers</h5>
         @foreach (var projectclock in Model.SummaryOfSessionClocks)
         {
-        <li class="nav-item">
-                <div class="mb-3">
-                    <h6>@projectclock.Project.Name</h6>
-                    <p>@projectclock.Description</p>
-                </div>
-        </li> 
+            <div class="card mb-3" style="width: 18rem;">
+              <div class="card-body">
+                        <h5 class="card-title">@projectclock.Project.Name</h5>
+                        <h6 class="card-title">@projectclock.Started.ToString("hh:mm") - @projectclock.Ended.ToString("hh:mm") </h6>
+                        <p class="card-text">@projectclock.Description</p>
+                        
+                        <form method="post" asp-page-handler="EditDescription">
+                            <button type="submit" class="btn btn-outline-success btn-sm" name="edit" value="@projectclock.Id">
+                                Lägg till/Ändra beskrivning
+                            </button>       
+                        </form>
+
+                        <form method="post" asp-page-handler="DeleteClock">
+                            <button type="submit" class="btn btn-outline-success btn-sm" name="deleteId" value="@projectclock.Id">
+                                Ta bort timer
+                            </button>       
+                        </form>
+              </div>
+            </div>
         }
     }
+
+   </div>
 
 
 }

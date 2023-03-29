@@ -41,10 +41,8 @@ namespace ProjectTimer.Pages.Sessions
                 Clock = _clockService.GetClockById(Id);
             }
 
-
-                var result = _clockService.GetClockByDate();
-                SummaryOfSessionClocks.AddRange(result);
-
+            var result = _clockService.GetClockByDate();
+            SummaryOfSessionClocks.AddRange(result);
 
             // then..
             var projects = _projectService.GetProjects();
@@ -79,7 +77,15 @@ namespace ProjectTimer.Pages.Sessions
             HttpContext.Session.Remove(SessionKeyId);
             return RedirectToPage("index");
         }
-        
+
+        public async Task<IActionResult> OnPostDeleteClock(int deleteId)
+        {
+            var result = _clockService.GetClockById(deleteId);
+            _clockService.DeleteClock(result);
+            return RedirectToPage("index");
+        }
+     
+
 
     }
 }

@@ -2,20 +2,22 @@
 @model ProjectTimer.Pages.Projects.IndexModel
 @{
 }
+<div class="ContentSection">
 <h4>Aktiva projekt</h4>
 @if (Model.projectList != null)
 {
-         <select class="form-select" aria-label="Default select example">
-            <option selected>Lägg till projekt</option>
-                @foreach(var item in @Model.projectList)
-                {
-                    int selectCount = 1;
-                    <option value="selectCount">@item.Name</option>
-                    selectCount = selectCount + 1;
-                }
-        </select>
-   
-}
+<form method="post" asp-page-handler="DeleteProject">
+    @foreach(var item in @Model.projectList)
+    {
+        <li class="nav-item">
+            <h6>@item.Name</h6>
+            <input type="submit" src="~/images/trashcan.svg" name="projectChoice" value="@item.Id">
+        </li>
+        <br/>
+    } 
+  </form>
+}   
+
 <br />
 <hr />
 <br />
@@ -25,9 +27,10 @@
 <form method="post">
     <div class="mb-3">
         <label for="formGroupExampleInput" class="form-label"></label>
-        <input type="text" class="form-control" asp-for="Name" >
+        <input type="text" class="form-control" value="" asp-for="Name" >
     </div>
     <div class="mb-3">
             <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
     </div>
 </form>
+</div>
