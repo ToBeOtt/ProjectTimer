@@ -3,11 +3,11 @@ using ProjectTimer.Data;
 
 namespace ProjectTimer.Services.Common
 {
-    public class CommonServices
+    public class CommonService
     {
         private readonly DataContext _context;
 
-        public CommonServices(DataContext context)
+        public CommonService(DataContext context)
         {
             _context = context;
         }

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ProjectTimer.Data;
+using ProjectTimer.Services.Clocks;
 using ProjectTimer.Services.Projects;
-using ProjectTimer.Services.ProjectSessionTimers;
 using ProjectTimer.Services.Sessions;
 using System;
 
@@ -11,8 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ProjectService>();
-builder.Services.AddScoped<SessionService>();
-builder.Services.AddScoped<ProjectSessionTimerService>();
+builder.Services.AddScoped<ClockService>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

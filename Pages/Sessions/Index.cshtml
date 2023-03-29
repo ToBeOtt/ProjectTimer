@@ -1,78 +1,41 @@
-﻿@page "{viewSession?}"
+﻿@page
 @using ProjectTimer.ViewComponents;
 @model ProjectTimer.Pages.Sessions.IndexModel
 @{
 }
+@if (Model.Clock == null)
+{
+<h5 style="text-align: center;">Tryck på ett projekt för att starta timer</h5>
+<br />
+ <form method="post" asp-page-handler="StartClock">
+    <h6 style="text-align: center;">Lägg till arbetsbeskrivning</h6>
+    <div class="mb-3">
+        <textarea class="form-control" name="taskDescription" rows="3"></textarea>
+    </div>
 
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-      @if (HttpContext.Features.Get<Microsoft.AspNetCore.Http.Features.ISessionFeature>()?.Session != null)
+    <ul class="nav justify-content-center">
+        @foreach (var project in Model.ProjectList)
         {
-        <form method="post" asp-page-handler="startSession">
-            <label for="formGroupExampleInput" class="form-label"></label>
-            <input type="hidden" class="form-control">
-            <button type="submit" class="btn btn-outline-success">
-                Starta session
-                </button>
-        </form> 
-        }
-    @if (@Model.sessionOnGoing != null)
-    {
-        <p>@Model.sessionOnGoing</p>
-    }
-    </li>
-
-@if (HttpContext.Session.GetString("_Id") != null)
-    {
         <li class="nav-item">
-            <form method="post" asp-page-handler="viewSession">
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-outline-success">
-                        Visa pågående session
+                    <button type="submit" class="btn btn-outline-success" name="pID" value="@project.Id">
+                        @project.Name
                     </button>
                 </div>
-            </form>
-        </li>
-        <li class="nav-item">
-            @*Avslutar pågående session*@
-    <form method="post" asp-page-handler="DeleteSession">
-        <div class="mb-3">
-            <button type="submit" class="btn btn-outline-success">
-                Avsluta session
-            </button>
-        </div>
-    </form>
-      </li>
-      }
-    </ul>
-@if (HttpContext.Session.GetString("_Id") != null)
-{
-    <h5 style="text-align: center;"> Aktivera projekt-timer</h5>
-    <ul class="nav justify-content-center">
-          <li class="nav-item">
-                <form method="post" asp-page-handler="ActivateProjectTimer">
-                <select class="form-select" name="projectName">
-                        <option selected>Lägg till projekt</option>
-                        @foreach (var project in Model.ProjectList)
-                        {
-                            int selectCount = 1;
-                        <option value="@project.Name">@project.Name</option>
-                            selectCount = selectCount + 1;
-                        }
-                    </select>
-                     <button type="submit" class="btn btn-outline-success">
-                        Hämta projekt-timer
-                    </button>
-                </form>
-          </li>
-    </ul>
-
-    if (@Model.ProjectTimeractivated)
-    {
-        @await Component.InvokeAsync("AddProjectTimer", new {Model.pId, Model.sId })
         
-    }
+        </li> 
+        }
+    </ul>
+</form>
 }
+
+@if (Model.Clock != null)
+{
+    <h1>HEJ!</h1>
+}
+
+
+
 
 
 

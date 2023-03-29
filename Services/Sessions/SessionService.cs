@@ -11,18 +11,6 @@ namespace ProjectTimer.Services.Sessions
             _context = context;
         }
 
-        public bool CreateSession(Session session)
-        {
-            _context.Add(session);
-            return Save();
-        }
-
-
-        public Session GetSession(int Id)
-        {
-            return _context.Sessions.Where(p => p.Id == Id).FirstOrDefault();
-        }
-
         public string TimePassed(DateTime start)
         {
             DateTime TimeNow = DateTime.Now;
