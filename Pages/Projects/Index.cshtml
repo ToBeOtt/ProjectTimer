@@ -8,6 +8,16 @@
   <div class="row gx-5">
     <div class="col">
      <div class="p-3" id="leftGutter">
+                <h4>Lägg till projekt</h4>
+                <form method="post">
+                    <div class="mb-3" id="rightGutter">
+                        <label for="formGroupExampleInput" class="form-label"></label>
+                        <input type="text" class="form-control" value="" asp-for="Name">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
+                    </div>
+                </form>
          <h4>Aktiva projekt</h4>
             @if (Model.projectList != null)
             {
@@ -25,18 +35,12 @@
      </div>
     </div>
     <div class="col">
-            <h4>Lägg till projekt</h4>  
-            <form method="post">
-                <div class="mb-3" id="rightGutter">
-                    <label for="formGroupExampleInput" class="form-label"></label>
-                    <input type="text" class="form-control" value="" asp-for="Name" >
-                </div>
-                <div class="mb-3">
-                        <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
-                </div>
-            </form>
-        </div>
-      </div>
+            <h5>Här visas sparad tid från olika projekt</h5>
+            <p>Med projekt i olika grupper tydligt avgränsade. Varje project går att visa alla sparade tider. 
+                Dessa kan sedan summeras ihop allihopa eller var för sig. Man kan också radera manuellt ett inlägg manuellt.
+            </p>
     </div>
-  </div>
+    </div>
+</div>
+
 

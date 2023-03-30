@@ -6,6 +6,7 @@
         public string? Description { get; set; }
         public DateTime Started { get; set; }
         public DateTime Ended { get; set; }
+        public double TotalMinutes { get; set; }
 
         public Project Project { get; set; }
 

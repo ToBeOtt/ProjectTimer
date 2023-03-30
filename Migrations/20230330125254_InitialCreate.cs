@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProjectTimer.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,6 +33,7 @@ namespace ProjectTimer.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Started = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ended = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalMinutes = table.Column<double>(type: "float", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

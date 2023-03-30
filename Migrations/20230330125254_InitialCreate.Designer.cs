@@ -12,8 +12,8 @@ using ProjectTimer.Data;
 namespace ProjectTimer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230329052826_init")]
-    partial class init
+    [Migration("20230330125254_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,9 @@ namespace ProjectTimer.Migrations
 
                     b.Property<DateTime>("Started")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("TotalMinutes")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

@@ -150,3 +150,10 @@ D:\Repositories\ProjectTimer\obj\Debug\net7.0\refint\ProjectTimer.dll
 D:\Repositories\ProjectTimer\obj\Debug\net7.0\ProjectTimer.pdb
 D:\Repositories\ProjectTimer\obj\Debug\net7.0\ProjectTimer.genruntimeconfig.cache
 D:\Repositories\ProjectTimer\obj\Debug\net7.0\ref\ProjectTimer.dll
+D:\Repositories\ProjectTimer\bin\Debug\net7.0\Dapper.dll
+D:\Repositories\ProjectTimer\bin\Debug\net7.0\System.Data.SqlClient.dll
+D:\Repositories\ProjectTimer\bin\Debug\net7.0\runtimes\win-arm64\native\sni.dll
+D:\Repositories\ProjectTimer\bin\Debug\net7.0\runtimes\win-x64\native\sni.dll
+D:\Repositories\ProjectTimer\bin\Debug\net7.0\runtimes\win-x86\native\sni.dll
+D:\Repositories\ProjectTimer\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Repositories\ProjectTimer\bin\Debug\net7.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

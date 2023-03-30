@@ -1,4 +1,5 @@
 ﻿@page
+@using Microsoft.AspNetCore.Html;
 @model ProjectTimer.Pages.Sessions.IndexModel
 @{
 }
@@ -9,33 +10,54 @@
 
         <div class="col" id="sessionRightGutter">
             <div class="p-3">
-                @if (HttpContext.Session.GetString("_Id") == null)
-            {
-                <h5 style="text-align: center;">Tryck på ett projekt för att starta timer</h5>
-                <br />
-                <form method="post" asp-page-handler="StartClock">
-                    <h6 style="text-align: center;">Lägg till arbetsbeskrivning</h6>
-                    <div class="mb-3">
-                        <textarea class="form-control" id="projectDescriptionTextarea" name="taskDescription" rows="4"></textarea>
-                    </div>
+                @if ((HttpContext.Session.GetString("_Id") == null) && (Model.ViewSummary != true))
+                {
+                        <h5 style="text-align: center;">Tryck på ett projekt för att starta timer</h5>
+                        <br />
+                        <form method="post" asp-page-handler="StartClock">
+                            <h6 style="text-align: center;">Lägg till arbetsbeskrivning</h6>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="projectDescriptionTextarea" name="taskDescription" rows="4"></textarea>
+                            </div>
 
-                    <br><hr> <br>  @*Ta detta till CSS-site.css senare vid refaktorering*@
+                            <br><hr> <br>  @*Ta detta till CSS-site.css senare vid refaktorering*@
 
-                    <h6 style="text-align: center;">Dina aktiva projekt</h6>
-                    <ul class="nav justify-content-center">
-                        @foreach (var project in Model.ProjectList)
+                            <h6 style="text-align: center;">Dina aktiva projekt</h6>
+                            <ul class="nav justify-content-center">
+                                @foreach (var project in Model.ProjectList)
+                                {
+                                    <li class="nav-item">
+                                        <div class="mb-3">
+                                            <button type="submit" class="btn btn-outline-success" name="pID" value="@project.Id">
+                                                @project.Name
+                                            </button>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                    </form>
+                }
+
+                @if (Model.ListOfTimerSummaries != null)
+                {
+                    int x = 0;
+                    @foreach (var projectClockList in Model.ListOfTimerSummaries)
+                    {
+                        
+                        string pName = null;
+                        foreach (var clock in projectClockList)
                         {
-                            <li class="nav-item">
-                                <div class="mb-3">
-                                    <button type="submit" class="btn btn-outline-success" name="pID" value="@project.Id">
-                                        @project.Name
-                                    </button>
-                                </div>
-                            </li>
+                            pName = clock.Project.Name;
+                            <h5>Projekt:</h5><p>@clock.Project.Name</p>
+                            <h5>Tidsåtgång:</h5>  <p>@clock.TotalMinutes min (mellan @clock.Started - @clock.Ended)</p>
+                            <h5>Utfört arbete:</h5><p>@clock.Description</p>
+                            <br />
+                            @*button : Vill du spara någon tid från detta projekt till din sparade tid?*@
                         }
-                    </ul>
-                </form>
-
+                        <h6>Dagens totala debiterbara tid för @pName är: @Model.TotalPricePerProjectList[x] minuter.</h6>
+                        x = x + 1;
+                    } 
+                }
                 
             @if (HttpContext.Session.GetString("_Id") != null)
             {
@@ -52,7 +74,6 @@
                     </div>
                 </form>
             </div>
-            }
             }
                 </div>
         </div>
@@ -71,7 +92,6 @@
                 <br /> <hr />
                 @if (Model.SummaryOfSessionClocks != null)
                 {
-         
                     @foreach (var projectclock in Model.SummaryOfSessionClocks)
                     {
                         <div class="card mb-3" style="width: 18rem;">
@@ -102,49 +122,8 @@
     </div>
 </div>
 
-@*
-
-<div class="container text-center">
-    <div class="row align-items-start">
 
 
-
-        <div class="col">
-            One of three columns
-        </div>
-
-
-
-        <div class="col">
-            
-        </div>
-
-
-
-        <div class="col" id="rightSessionColumn">
-            
-
-
-
-
-    </div>
-</div>
-
-
-
-
-        <br><hr> <br>
-        
-        
-
-        <br><hr> <br>
-*@
-   
-
-
-
-
-}
 
 
 

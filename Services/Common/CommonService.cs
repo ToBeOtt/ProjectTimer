@@ -11,6 +11,7 @@ namespace ProjectTimer.Services.Common
         {
             _context = context;
         }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();
