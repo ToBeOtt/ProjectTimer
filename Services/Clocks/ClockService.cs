@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Http;
 using ProjectTimer.Services.Projects;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using ProjectTimer.Areas.Identity.Data;
 
 namespace ProjectTimer.Services.Clocks
 {
@@ -23,13 +26,17 @@ namespace ProjectTimer.Services.Clocks
         private readonly DataContext _context;
         private readonly IConfiguration _configuration;
         private readonly ProjectService _projectService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ClockService(DataContext context, IConfiguration configuration, ProjectService projectService)
+        public ClockService(DataContext context, IConfiguration configuration, ProjectService projectService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _configuration = configuration;
             _projectService = projectService;
+            _httpContextAccessor = httpContextAccessor;
         }
+
 
 
         // Read / Sorting-services
@@ -119,7 +126,12 @@ namespace ProjectTimer.Services.Clocks
         public List<Project> ProjectList { get; set; } = new List<Project>();
         public List<List<Clock>> CalculateSessionTime(List<int> list)
         {
-            var projects = _projectService.GetProjects();
+            // Get current user-id
+
+            ClaimsPrincipal currentUser = _httpContextAccessor.HttpContext.User;
+            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var projects = _projectService.GetProjects(Convert.ToString(currentUserID));
             ProjectList.AddRange(projects);
 
             var projectSeparatedList = new List<List<Clock>>();

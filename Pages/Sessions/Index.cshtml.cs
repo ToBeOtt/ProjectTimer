@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,14 @@ using ProjectTimer.Services.Sessions;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace ProjectTimer.Pages.Sessions
 {
     [BindProperties]
+    [Authorize]
     public class IndexModel : PageModel
     {
         // Deklarerar ny session-key
@@ -51,7 +54,11 @@ namespace ProjectTimer.Pages.Sessions
             SummaryOfSessionClocks.AddRange(result);
 
             // then..
-            var projects = _projectService.GetProjects();
+            // Get current user-id
+            ClaimsPrincipal currentUser = this.User;
+            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var projects = _projectService.GetProjects(currentUserID);
             ProjectList.AddRange(projects);
             return Page();
         }

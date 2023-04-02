@@ -5,21 +5,34 @@ using ProjectTimer.Services.Clocks;
 using ProjectTimer.Services.Projects;
 using ProjectTimer.Services.Sessions;
 using System;
+using Microsoft.AspNetCore.Identity;
+using ProjectTimer.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+//        .RequireAuthenticatedUser()
+//        .Build();
+//});
+
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<ClockService>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddDistributedMemoryCache(); // Skapar möjlighet att lagra session i cookie
+
+builder.Services.AddDefaultIdentity<ProjectTimerUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<DataContext>();
+builder.Services.AddDistributedMemoryCache(); // Skapar mï¿½jlighet att lagra session i cookie
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(1); //Stänger av session om man inte gjort något på 5 timmar.
+    options.IdleTimeout = TimeSpan.FromHours(5); //Stï¿½nger av session om man inte gjort nï¿½got pï¿½ 5 timmar.
 }
 );
 
@@ -40,7 +53,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseSession(); // Ska vara mellan UseRouting och MapRazorPages för att fungera korrekt.
+app.UseSession(); // Ska vara mellan UseRouting och MapRazorPages fï¿½r att fungera korrekt.
 
 app.MapRazorPages();
 

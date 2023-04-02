@@ -31,9 +31,9 @@ namespace ProjectTimer.Services.Projects
             return projectId;
         }
 
-        public ICollection<Project> GetProjects()
+        public ICollection<Project> GetProjects(string id)
         {
-            return _context.Projects.OrderBy(h => h.Id).ToList();
+            return _context.Projects.Where(p => p.ProjectTimeUserId == id).OrderBy(p => p.Id).ToList();
         }
 
         public bool DeleteProject(Project project)
