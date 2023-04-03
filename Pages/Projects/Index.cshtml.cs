@@ -27,20 +27,26 @@ namespace ProjectTimer.Pages.Projects
 
         [BindProperty]
         public List<Project> projectList { get; set; } = new List<Project>();
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             // Get current user-id
             ClaimsPrincipal currentUser = this.User;
             var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if(currentUserID == null)
+            {
+                ModelState.AddModelError("", "Kan inte hitta användare");
+                return StatusCode(500, ModelState);
+            }
 
-            var projects = _projectService.GetProjects(currentUserID);
+            var projects = await _projectService.GetProjects(currentUserID);
             projectList.AddRange(projects);
+            return Page();
         }
 
 
         [BindProperty]
-        public int Name { get; set; }
-        public async Task<IActionResult> OnPost(string name)
+        public string Name { get; set; }
+        public async Task<IActionResult> OnPostAsync(string name)
         {
             // Get current user-id
             ClaimsPrincipal currentUser = this.User;
@@ -51,23 +57,45 @@ namespace ProjectTimer.Pages.Projects
                 return StatusCode(500, ModelState);
             }
             Project project = new Project(name, currentUserID);
-            if (!_projectService.CreateProject(project))
+            if(!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Projektet kunde inte skapas");
+                return StatusCode(500, ModelState);
+            }
+            if (!await _projectService.CreateProject(project))
             {
                 ModelState.AddModelError("", "Projekt kunde inte sparas");
                 return StatusCode(500, ModelState);
             }
+            Name = project.Name;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDeleteProject(int projectChoice)
+        public async Task<IActionResult> OnPostDeleteProjectAsync(int projectDelete)
         {
-            //if-validera osv..
-            var clock = _clockService.GetClockByProjectId(projectChoice);
+            var clock = await _clockService.GetClockByProjectId(projectDelete);
+            if (!ModelState.IsValid) 
+            {
+                ModelState.AddModelError("", "Associerade timers kunde inte raderas.");
+                return StatusCode(500, ModelState);
+            }
             _clockService.DeleteClock(clock);
 
-            var project = _projectService.GetProjectById(projectChoice);
+            var project = await _projectService.GetProjectById(projectDelete);
             _projectService.DeleteProject(project);
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Projekt kunde inte raderas.");
+                return StatusCode(500, ModelState);
+            }
 
+            return Page();
+        }
+
+        public bool EditTest { get; set; }
+        public async Task<IActionResult> OnPostEditProjectAsync(int projectEdit)
+        {
+            EditTest = true;
             return Page();
         }
     }

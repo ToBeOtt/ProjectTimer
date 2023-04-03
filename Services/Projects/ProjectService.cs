@@ -13,30 +13,35 @@ namespace ProjectTimer.Services.Projects
         {
             _context = context;
         }
-       public bool CreateProject(Project project)
+       public async Task<bool> CreateProject(Project project)
         {
             _context.Add(project);
             return Save();
         }
 
-        public Project GetProjectById(int id)
+        public async Task<Project> GetProjectById(int id)
         {
             return _context.Projects.Where(p => p.Id == id).FirstOrDefault();
         }
 
-        public int GetProjectByName(string projectName)
+        public async Task<Project> GetProjectByUser(string id)
+        {
+            return _context.Projects.Where(p => p.ProjectTimeUserId == id).FirstOrDefault();
+        }
+
+        public async Task<int> GetProjectByName(string projectName)
         {
             var result = _context.Projects.Where(p => p.Name == projectName).FirstOrDefault();
             int projectId = result.Id;
             return projectId;
         }
 
-        public ICollection<Project> GetProjects(string id)
+        public async Task<ICollection<Project>> GetProjects(string id)
         {
             return _context.Projects.Where(p => p.ProjectTimeUserId == id).OrderBy(p => p.Id).ToList();
         }
 
-        public bool DeleteProject(Project project)
+        public async Task<bool> DeleteProject(Project project)
         {
             _context.Projects.Remove(project);
             return Save();
@@ -47,5 +52,11 @@ namespace ProjectTimer.Services.Projects
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public async Task<bool> ProjectExists(int id)
+        {
+            return _context.Projects.Any(p => p.Id == id);
+        }
+
     }
 }

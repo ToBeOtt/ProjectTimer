@@ -9,6 +9,7 @@ namespace ProjectTimer.Entities
         public Double SavedTime { get; set; }
         public string Note { get; set; }
 
+        public int ProjectId { get; set; }
         public Project Project { get; set; }
     }
 }

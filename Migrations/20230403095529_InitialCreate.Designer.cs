@@ -12,7 +12,7 @@ using ProjectTimer.Data;
 namespace ProjectTimer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230402055907_InitialCreate")]
+    [Migration("20230403095529_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -247,8 +247,8 @@ namespace ProjectTimer.Migrations
                     b.Property<DateTime>("Started")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("TotalMinutes")
-                        .HasColumnType("float");
+                    b.Property<int>("TotalMinutes")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

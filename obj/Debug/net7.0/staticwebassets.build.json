@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/vgvfTc2lN/0ADv0ukAkpJ1/NB+PO54VAZEQwRuNzDA=",
+  "Hash": "WlphuZA7N+AXTbcUp1aOr0NigGHrmBCx/y963+MWuo0=",
   "Source": "ProjectTimer",
   "BasePath": "_content/ProjectTimer",
   "Mode": "Default",
@@ -1137,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\editpen.svg",
+      "SourceId": "ProjectTimer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Repositories\\ProjectTimer\\wwwroot\\",
+      "BasePath": "_content/ProjectTimer",
+      "RelativePath": "images/editpen.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\editpen.svg"
     },
     {
       "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\trashcan.svg",

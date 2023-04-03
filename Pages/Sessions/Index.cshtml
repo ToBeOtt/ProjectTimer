@@ -7,8 +7,9 @@
 
 <div class="container px-4 text-center">
     <div class="row gx-5">
+        <div class="col" id="sessionRightGutter"> @*Right gutter-column*@
 
-        <div class="col" id="sessionRightGutter">
+            @*The view to start a new timer and choose which project to clock.*@
             <div class="p-3">
                 @if ((HttpContext.Session.GetString("_Id") == null) && (Model.ViewSummary != true))
                 {
@@ -23,7 +24,7 @@
                             <br><hr> <br>  @*Ta detta till CSS-site.css senare vid refaktorering*@
 
                             <h6 style="text-align: center;">Dina aktiva projekt</h6>
-                            <ul class="nav justify-content-center">
+                            <ul class="nav" id="ul-start-session">
                                 @foreach (var project in Model.ProjectList)
                                 {
                                     <li class="nav-item">
@@ -38,6 +39,7 @@
                     </form>
                 }
 
+               @* Display summary of all timers and project after all timers have been summed up.*@
                 @if (Model.ListOfTimerSummaries != null)
                 {
                     int x = 0;
@@ -47,18 +49,32 @@
                         string pName = null;
                         foreach (var clock in projectClockList)
                         {
-                            pName = clock.Project.Name;
-                            <h5>Projekt:</h5><p>@clock.Project.Name</p>
-                            <h5>Tidsåtgång:</h5>  <p>@clock.TotalMinutes min (mellan @clock.Started - @clock.Ended)</p>
-                            <h5>Utfört arbete:</h5><p>@clock.Description</p>
-                            <br />
-                            @*button : Vill du spara någon tid från detta projekt till din sparade tid?*@
+                            <div class="summary-text-box">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+                                  <div class="col">
+                                      <div class="card-body">
+                                            <h5 class="card-title">@clock.Project.Name</h5>
+                                            <p class="card-text">@clock.Description</p>
+                                            <p class="card-text"><em>@clock.TotalMinutes min (mellan @clock.Started - @clock.Ended)</em></p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  </div>
                         }
                         <h6>Dagens totala debiterbara tid för @pName är: @Model.TotalPricePerProjectList[x] minuter.</h6>
                         x = x + 1;
-                    } 
+                        
+                         <div class="sum-each-project-text" style="justify-items: left;">
+                            <button type="submit" class="btn btn-outline-success">Spara projekttid</button>
+                        </div>
+                        <br />
+
+                        <hr> <br />
+                    }
+                    
                 }
                 
+       @*     Shows only that a timer is active for the moment and all other data on session page is temporarily hidden*@
             @if (HttpContext.Session.GetString("_Id") != null)
             {
             <div class="clockSection">
@@ -78,8 +94,8 @@
                 </div>
         </div>
 
-
-        <div class="col" id="sessionLeftGutter">
+       @* Option for sum all timers*@
+        <div class="col" id="sessionLeftGutter"> @*Left gutter-column*@
             <div class="p-3">
                 @if (HttpContext.Session.GetString("_Id") == null)
                 {
@@ -89,7 +105,10 @@
                         </button>
                     </form>
                 }
+
                 <br /> <hr />
+
+            @*    Views all clocks of current date that has been finished. If none is finished, this is omitted.*@
                 @if (Model.SummaryOfSessionClocks != null)
                 {
                     @foreach (var projectclock in Model.SummaryOfSessionClocks)
@@ -115,7 +134,15 @@
                         </div>
                     }
                 }
-                </div>
+                else
+                {
+                    <div class="card mb-3" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Finns inga timers för dagen</h5>
+                            </div>
+                    </div>
+                }
+            </div>
         </div>
 
 

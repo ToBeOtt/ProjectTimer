@@ -9,3 +9,26 @@
     display: grid;
     justify-content: center;
 }
+
+#ul-start-session {
+    justify-content: center;
+    flex-direction: column;
+}
+
+.summary-text-box {
+    margin-bottom: 1em;
+    margin-top: 1em;
+    text-align: left;
+    font-size: 0.8em;
+}
+
+.body-text-summary{
+    color: #ff6a00;
+    display: inline-block;
+}
+
+.sum-each-project-text {
+    display: flex;
+    justify-content: left;
+
+}

@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\editpen.svg",
+      "PackagePath": "staticwebassets\\images\\editpen.svg"
+    },
+    {
       "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\trashcan.svg",
       "PackagePath": "staticwebassets\\images\\trashcan.svg"
     },

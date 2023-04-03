@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
+using ProjectTimer.Areas.Identity.Data;
 using ProjectTimer.Entities;
 using ProjectTimer.Services.Clocks;
 using ProjectTimer.Services.Projects;
+using ProjectTimer.Services.ProjectTimerUsers;
 using ProjectTimer.Services.Sessions;
 using System.ComponentModel;
 using System.Net.Http;
@@ -27,11 +29,13 @@ namespace ProjectTimer.Pages.Sessions
 
         private readonly ProjectService _projectService;
         private readonly ClockService _clockService;
+        private readonly ProjectTimerUserService _projectTimerUserService;
 
-        public IndexModel(ProjectService projectService, ClockService clockService)
+        public IndexModel(ProjectService projectService, ClockService clockService, ProjectTimerUserService projectTimerUserService)
         {
             _projectService = projectService;
             _clockService = clockService;
+            _projectTimerUserService = projectTimerUserService;
         }
 
 
@@ -40,6 +44,7 @@ namespace ProjectTimer.Pages.Sessions
 // get modelstate for current active clock. This is then displayed instead when entering the page.
         public List<Project> ProjectList { get; set; } = new List<Project>();
         public List<Clock> SummaryOfSessionClocks { get; set; } = new List<Clock>();
+        public bool NoCurrentProjectBool { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
             //If scrolling from other pages while session is ongoing:
@@ -47,29 +52,61 @@ namespace ProjectTimer.Pages.Sessions
             {
                 var stringId = HttpContext.Session.GetInt32(IndexModel.SessionKeyId);
                 int Id = Convert.ToInt32(stringId);
-                Clock = _clockService.GetClockById(Id);
+                Clock = await _clockService.GetClockById(Id);
             }
 
-            var result = _clockService.GetClockByDate();
-            SummaryOfSessionClocks.AddRange(result);
-
-            // then..
             // Get current user-id
             ClaimsPrincipal currentUser = this.User;
             var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if(currentUser == null)
+            {
+                ModelState.AddModelError("", "Kan inte hitta användare");
+            }
 
-            var projects = _projectService.GetProjects(currentUserID);
+            //See if any active project exists
+
+            var projects = await _projectService.GetProjects(currentUserID);
+            if(projects == null)
+            {
+                return BadRequest(ModelState);
+            }
+
             ProjectList.AddRange(projects);
+            if (projects.Count <= 0)
+            {
+                NoCurrentProjectBool = true;
+                return Page();
+            }
+
+            // Get Clocks that might exists for todays date.  // BORDE VARA GET CLOCKS BY DATE AND PROJECT ID WHERE PROJECTTIMERUSER == currentUser
+            var result = await _clockService.GetClockByDate(currentUserID);
+            if (result == null)
+            {
+                return BadRequest(ModelState);
+            }
+            SummaryOfSessionClocks.AddRange(result);
             return Page();
         }
 
-
-// Start new clock and begin a new session
+        // Start new clock and begin a new session
         public Clock Clock { get; set; }
-        public string projectClockActive { get; set; }
         public async Task<IActionResult> OnPostStartClock(int pID, string taskDescription)
         {
-            Clock = _clockService.CreateClock(pID, taskDescription);
+            ClaimsPrincipal currentUser = this.User;
+            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (currentUser == null)
+            {
+                ModelState.AddModelError("", "Kan inte hitta användare");
+            }
+            
+            Clock = await _clockService.CreateClock(taskDescription, pID, currentUserID);
+
+            if (HttpContext == null)
+            {
+                // HttpContext is not available
+                return StatusCode(StatusCodes.Status500InternalServerError, "Något gick fel med anslutningen");
+            }
+
             // Create a new session if session is empty, else return session ongoing.
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetString
                 (SessionKeyId)))
@@ -79,8 +116,6 @@ namespace ProjectTimer.Pages.Sessions
             else
             {
                 var id = HttpContext.Session.GetInt32(SessionKeyId).ToString();
-                projectClockActive = "Det finns redan en pågående session.";
-                // Add later: would you like to end current session?
             }
             return Page();
         }
@@ -88,15 +123,23 @@ namespace ProjectTimer.Pages.Sessions
 // Updates clock with end-datetime and then remove current session. 
         public async Task<IActionResult> OnPostEndClock(int clockId)
         {
-            _clockService.EndClock(clockId);
+            if (!await _clockService.EndClock(clockId))
+            {
+                ModelState.AddModelError("", "Något gick fel vid stoppandet av timern");
+            }
+
             HttpContext.Session.Remove(SessionKeyId);
             return RedirectToPage("index");
         }
 
         public async Task<IActionResult> OnPostDeleteClock(int deleteId)
         {
-            var result = _clockService.GetClockById(deleteId);
-            _clockService.DeleteClock(result);
+            var result = await _clockService.GetClockById(deleteId);
+            if (!await _clockService.DeleteClock(result))
+            {
+                ModelState.AddModelError("", "Det gick inte att radera timer");
+            }
+                
             return RedirectToPage("index");
         }
 
@@ -110,10 +153,20 @@ namespace ProjectTimer.Pages.Sessions
         public async Task<IActionResult> OnPostSumAll()
         {
             // Gets all clocks of todays date in list grouped by project-name.
-            List<int> result = _clockService.ClockSortedByProject();
-            // Retrieves all clocks ordered in multiarray-list where each project is in a separate list.
-            var collectedClocklists = _clockService.CalculateSessionTime(result);
+            List<int> result = await _clockService.ClockSortedByProject();
+            if (!result.Any())
+            {
+                ModelState.AddModelError("", "Det finns inga timers att visa");
+                return StatusCode(500, ModelState);
 
+            }
+            // Retrieves all clocks ordered in multiarray-list where each project is in a separate list.
+            var collectedClocklists = await _clockService.CalculateSessionTime(result);
+            if (!collectedClocklists.Any())
+            {
+                ModelState.AddModelError("", "Listan med timers gick inte att hämta..");
+                return StatusCode(500, ModelState);
+            }
             // All is presented in a ordered list where each clock is presented (time spent and when with note) and also 
             // the total time spent of session/per project.
             foreach (var clocklist in collectedClocklists)
@@ -137,6 +190,4 @@ namespace ProjectTimer.Pages.Sessions
             return Page();
         }
     }
-
-    // User is prompted with how much undebited saved time remains and asked how much should be saved.
 }

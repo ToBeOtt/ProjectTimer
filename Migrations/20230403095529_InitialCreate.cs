@@ -185,7 +185,7 @@ namespace ProjectTimer.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Started = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ended = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalMinutes = table.Column<double>(type: "float", nullable: false),
+                    TotalMinutes = table.Column<int>(type: "int", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

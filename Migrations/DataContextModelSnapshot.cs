@@ -244,8 +244,8 @@ namespace ProjectTimer.Migrations
                     b.Property<DateTime>("Started")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("TotalMinutes")
-                        .HasColumnType("float");
+                    b.Property<int>("TotalMinutes")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -18,20 +18,32 @@
                         <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
                     </div>
                 </form>
-         <h4>Aktiva projekt</h4>
             @if (Model.projectList != null)
             {
-            <form method="post" asp-page-handler="DeleteProject">
-                @foreach(var item in @Model.projectList)
-                {
-                    <li class="nav-item" id="projectsCollection">
-                        <h6>@item.Name</h6>
-                        <img type="submit" src="~/images/trashcan.svg" class="trashbin" alt="..." name="projectChoice" value="@item.Id">
-                    </li>
-                    <br/>
-                } 
-                </form>
-            }   
+                    <h5 style="text-align: center;">Dina befintliga projekt</h5>
+                    <br />
+                    <ul class="nav" id="ul-show-project">
+                            @foreach (var project in Model.projectList)
+                            {
+                                <li class="nav-item">
+                                    <div class="mb-3">
+                                    <button type="submit" class="btn btn-outline-success" name="pID" value="@project.Id">
+                                            @project.Name
+                                        </button>
+                                        <img type="submit" src="~/images/trashcan.svg" alt="Picture of Trashcan" name="projectDelete" value="@project.Id">
+                                        <img type="submit" src="~/images/editpen.svg" alt="Picture of pencil" name="projectEdit" value="@project.Id">
+                                    </div>
+                                </li>
+                                <br />
+                                }
+                        </ul>
+                    @if(Model.EditTest)
+                    {
+                        <p>Edit funkar</p>
+                        
+                    }
+
+                }   
      </div>
     </div>
     <div class="col">
@@ -39,8 +51,28 @@
             <p>Med projekt i olika grupper tydligt avgränsade. Varje project går att visa alla sparade tider. 
                 Dessa kan sedan summeras ihop allihopa eller var för sig. Man kan också radera manuellt ett inlägg manuellt.
             </p>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-outline-success">Spara odebiterad projekttid</button>
+            </div>
     </div>
+        
     </div>
 </div>
 
 
+
+
+
+
+
+                     @*<li class="nav-item">
+                                <div class="mb-3" id="content-show-project">
+                                    @project.Name
+                                        <form method="post" asp-page-handler="DeleteProject">
+                                            <img type="submit" class="alter-object-svgs" src="~/images/trashcan.svg"  alt="Picture of Trashcan" name="projectDelete" value="@project.Id">
+                                         </form>
+                                         <form method="post" asp-page-handler="EditProject">
+                                            <img type="submit" class="alter-object-svgs" src="~/images/editpen.svg"  alt="Picture of pencil" name="projectEdit" value="@project.Id">
+                                        </form>
+                                    </div>
+                                </li>*@

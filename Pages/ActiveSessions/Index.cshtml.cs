@@ -15,10 +15,7 @@ namespace ProjectTimer.Pages.ActiveSessions
 
         public void OnGet(int Id)
         {
-            //_clockService.EndClock();
-            //HttpContext.Session.Remove(SessionKeyId);
-            //return Page();
-           
+
         }
     }
 }
