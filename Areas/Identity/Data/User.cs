@@ -8,7 +8,7 @@ using ProjectTimer.Entities;
 namespace ProjectTimer.Areas.Identity.Data;
 
 // Add profile data for application users by adding properties to the ProjectTimerUser class
-public class ProjectTimerUser : IdentityUser
+public class User : IdentityUser
 {
     public ICollection<Project> Project { get; set; }
 }

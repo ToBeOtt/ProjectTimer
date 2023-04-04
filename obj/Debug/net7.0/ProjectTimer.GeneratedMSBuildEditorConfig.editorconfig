@@ -44,10 +44,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repositories/ProjectTimer/Pages/ActiveSessions/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWN0aXZlU2Vzc2lvbnNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Repositories/ProjectTimer/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -56,8 +52,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Repositories/ProjectTimer/Pages/Projects/ModifyProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdHNcTW9kaWZ5UHJvamVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Repositories/ProjectTimer/Pages/Projects/SaveProjectTime.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdHNcU2F2ZVByb2plY3RUaW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Repositories/ProjectTimer/Pages/Sessions/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Vzc2lvbnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Repositories/ProjectTimer/Pages/Sessions/ModifyClock.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Vzc2lvbnNcTW9kaWZ5Q2xvY2suY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Repositories/ProjectTimer/Pages/Shared/_LoginPartial.cshtml]

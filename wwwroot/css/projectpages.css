@@ -2,18 +2,12 @@
 }
 
 /*Project related*/
-#projectsCollection {
-    display: flex;
-    flex-direction: row;
-}
-
-#leftGutter {
+#left-gutter {
     display: grid;
     justify-content: center;
 }
 
-#rightGutter {
-    display: grid;
+#right-gutter {
     justify-content: left;
 }
 
@@ -23,16 +17,32 @@
     margin-left: 1rem;
 }
 
+.list-group-item {
+    margin: 0;
+    padding: 0;
+}
+
+.project-list-container {
+    display: flex;
+    align-content: center;
+}
+    .project-list-container > p {
+        margin-right: 0.5em;
+    }
+
+
 .nav-item {
     list-style-type: none;
     align-content: center;
     justify-content: center;
 }
 
-#ul-show-project > *{
+#ul-show-project > * {
+    
     justify-content: center;
+    flex-direction: column;
 }
 
-#content-show-project {
-    display: inline-block;
+#project-saved-form > div > input {
+    margin: 15em;
 }

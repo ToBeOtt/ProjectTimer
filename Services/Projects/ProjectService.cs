@@ -26,19 +26,17 @@ namespace ProjectTimer.Services.Projects
 
         public async Task<Project> GetProjectByUser(string id)
         {
-            return _context.Projects.Where(p => p.ProjectTimeUserId == id).FirstOrDefault();
+            return _context.Projects.Where(p => p.UserId == id).FirstOrDefault();
         }
 
-        public async Task<int> GetProjectByName(string projectName)
+        public async Task<Project> GetProjectByName(string projectName)
         {
-            var result = _context.Projects.Where(p => p.Name == projectName).FirstOrDefault();
-            int projectId = result.Id;
-            return projectId;
+            return _context.Projects.Where(p => p.Name.ToUpper() == projectName.ToUpper()).FirstOrDefault();
         }
 
         public async Task<ICollection<Project>> GetProjects(string id)
         {
-            return _context.Projects.Where(p => p.ProjectTimeUserId == id).OrderBy(p => p.Id).ToList();
+            return _context.Projects.Where(p => p.UserId == id).OrderBy(p => p.Id).ToList();
         }
 
         public async Task<bool> DeleteProject(Project project)

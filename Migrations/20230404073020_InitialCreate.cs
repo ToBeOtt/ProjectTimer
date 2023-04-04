@@ -163,17 +163,17 @@ namespace ProjectTimer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProjectTimeUserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProjectTimerUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_AspNetUsers_ProjectTimerUserId",
-                        column: x => x.ProjectTimerUserId,
+                        name: "FK_Projects_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -266,9 +266,9 @@ namespace ProjectTimer.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_ProjectTimerUserId",
+                name: "IX_Projects_UserId",
                 table: "Projects",
-                column: "ProjectTimerUserId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SavedProjectTimes_ProjectId",

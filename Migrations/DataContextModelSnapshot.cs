@@ -159,7 +159,7 @@ namespace ProjectTimer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectTimer.Areas.Identity.Data.ProjectTimerUser", b =>
+            modelBuilder.Entity("ProjectTimer.Areas.Identity.Data.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -266,16 +266,13 @@ namespace ProjectTimer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProjectTimeUserId")
+                    b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProjectTimerUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectTimerUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Projects");
                 });
@@ -319,7 +316,7 @@ namespace ProjectTimer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ProjectTimer.Areas.Identity.Data.ProjectTimerUser", null)
+                    b.HasOne("ProjectTimer.Areas.Identity.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -328,7 +325,7 @@ namespace ProjectTimer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ProjectTimer.Areas.Identity.Data.ProjectTimerUser", null)
+                    b.HasOne("ProjectTimer.Areas.Identity.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -343,7 +340,7 @@ namespace ProjectTimer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectTimer.Areas.Identity.Data.ProjectTimerUser", null)
+                    b.HasOne("ProjectTimer.Areas.Identity.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -352,7 +349,7 @@ namespace ProjectTimer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ProjectTimer.Areas.Identity.Data.ProjectTimerUser", null)
+                    b.HasOne("ProjectTimer.Areas.Identity.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -372,11 +369,13 @@ namespace ProjectTimer.Migrations
 
             modelBuilder.Entity("ProjectTimer.Entities.Project", b =>
                 {
-                    b.HasOne("ProjectTimer.Areas.Identity.Data.ProjectTimerUser", "ProjectTimerUser")
+                    b.HasOne("ProjectTimer.Areas.Identity.Data.User", "User")
                         .WithMany("Project")
-                        .HasForeignKey("ProjectTimerUserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ProjectTimerUser");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProjectTimer.Entities.SavedProjectTime", b =>
@@ -390,7 +389,7 @@ namespace ProjectTimer.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("ProjectTimer.Areas.Identity.Data.ProjectTimerUser", b =>
+            modelBuilder.Entity("ProjectTimer.Areas.Identity.Data.User", b =>
                 {
                     b.Navigation("Project");
                 });

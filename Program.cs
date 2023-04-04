@@ -8,7 +8,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using ProjectTimer.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
-using ProjectTimer.Services.ProjectTimerUsers;
+using ProjectTimer.Services.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,13 +24,13 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<ClockService>();
-builder.Services.AddScoped<ProjectTimerUserService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddDefaultIdentity<ProjectTimerUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<DataContext>();
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<DataContext>();
 builder.Services.AddDistributedMemoryCache(); // Skapar m�jlighet att lagra session i cookie
 builder.Services.AddSession(options =>
 {

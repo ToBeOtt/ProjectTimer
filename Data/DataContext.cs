@@ -9,7 +9,7 @@ using System.Reflection.Emit;
 
 namespace ProjectTimer.Data
 {
-    public class DataContext : IdentityDbContext<ProjectTimerUser>
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext> options)
         : base(options)
@@ -19,7 +19,7 @@ namespace ProjectTimer.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Clock> Clocks { get; set; }
         public DbSet<SavedProjectTime> SavedProjectTimes { get; set; }
-        public DbSet<ProjectTimerUser> ProjectTimerUsers { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

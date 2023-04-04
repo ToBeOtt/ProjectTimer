@@ -49,7 +49,7 @@ namespace ProjectTimer.Services.Clocks
             return _context.Clocks
                 .OrderBy(c => c.Started)
                 .Where(c => c.Started >= start && c.Started < end)
-                .Where(c => c.Project.ProjectTimeUserId == userId)
+                .Where(c => c.Project.UserId == userId)
                 .ToList();
         }
         public async Task<Clock> GetClockById(int id)
@@ -95,17 +95,23 @@ namespace ProjectTimer.Services.Clocks
             Clock clock = new Clock(taskDescription, DateTime.Now);
 
             var project = _context.Projects.Where(p => p.Id == pId).FirstOrDefault();
-            var projectTimerUser = _context.ProjectTimerUsers.Where(pt => pt.Id == UserId).FirstOrDefault();
+            var user = _context.Users.Where(pt => pt.Id == UserId).FirstOrDefault();
 
             clock.Project = project;
-            clock.Project.ProjectTimerUser = projectTimerUser;
+            clock.Project.User = user;
 
             _context.Clocks.Add(clock);
             Save();
             return clock;
         }
-       
-        
+
+        public async Task<bool> UpdateClock(Clock clock)
+        {
+            _context.Clocks.Update(clock);
+            return Save();
+        }
+
+
         // Remove 
         public async Task<bool> EndClock(int id)
         {

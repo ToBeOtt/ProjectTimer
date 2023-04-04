@@ -1,0 +1,5 @@
+﻿- Ordna metod för att hitta user:
+
+- Ordna metod för att normalisera strängar till databasen? Spelar det roll om man letar projekt som "skanska" eller "SKANSKa"?
+
+- Fixa AddSaveProjectTime (pågående)

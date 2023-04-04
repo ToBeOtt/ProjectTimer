@@ -16,9 +16,9 @@ namespace ProjectTimer.Pages.Projects
     {
         private readonly ProjectService _projectService;
         private readonly ClockService _clockService;
-        private readonly Microsoft.AspNetCore.Identity.UserManager<ProjectTimerUser> _userManager;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<User> _userManager;
 
-        public IndexModel(ProjectService projectService, ClockService clockService, UserManager<ProjectTimerUser> userManager)
+        public IndexModel(ProjectService projectService, ClockService clockService, UserManager<User> userManager)
         {
             _projectService = projectService;
             _clockService = clockService;
@@ -68,35 +68,7 @@ namespace ProjectTimer.Pages.Projects
                 return StatusCode(500, ModelState);
             }
             Name = project.Name;
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostDeleteProjectAsync(int projectDelete)
-        {
-            var clock = await _clockService.GetClockByProjectId(projectDelete);
-            if (!ModelState.IsValid) 
-            {
-                ModelState.AddModelError("", "Associerade timers kunde inte raderas.");
-                return StatusCode(500, ModelState);
-            }
-            _clockService.DeleteClock(clock);
-
-            var project = await _projectService.GetProjectById(projectDelete);
-            _projectService.DeleteProject(project);
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Projekt kunde inte raderas.");
-                return StatusCode(500, ModelState);
-            }
-
-            return Page();
-        }
-
-        public bool EditTest { get; set; }
-        public async Task<IActionResult> OnPostEditProjectAsync(int projectEdit)
-        {
-            EditTest = true;
-            return Page();
+            return Redirect("/Projects");
         }
     }
 }

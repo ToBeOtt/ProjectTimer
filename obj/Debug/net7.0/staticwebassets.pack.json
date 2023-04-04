@@ -25,6 +25,14 @@
       "PackagePath": "staticwebassets\\images\\editpen.svg"
     },
     {
+      "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\hourglass-split.svg",
+      "PackagePath": "staticwebassets\\images\\hourglass-split.svg"
+    },
+    {
+      "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\pencil-fill.svg",
+      "PackagePath": "staticwebassets\\images\\pencil-fill.svg"
+    },
+    {
       "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\trashcan.svg",
       "PackagePath": "staticwebassets\\images\\trashcan.svg"
     },

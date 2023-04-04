@@ -11,5 +11,7 @@ namespace ProjectTimer.Entities
 
         public int ProjectId { get; set; }
         public Project Project { get; set; }
+
+        public SavedProjectTime() { }
     }
 }

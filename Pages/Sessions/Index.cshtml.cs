@@ -9,8 +9,9 @@ using ProjectTimer.Areas.Identity.Data;
 using ProjectTimer.Entities;
 using ProjectTimer.Services.Clocks;
 using ProjectTimer.Services.Projects;
-using ProjectTimer.Services.ProjectTimerUsers;
+using ProjectTimer.Services.Users;
 using ProjectTimer.Services.Sessions;
+using ProjectTimer.Services.Users;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -29,13 +30,13 @@ namespace ProjectTimer.Pages.Sessions
 
         private readonly ProjectService _projectService;
         private readonly ClockService _clockService;
-        private readonly ProjectTimerUserService _projectTimerUserService;
+        private readonly UserService _userService;
 
-        public IndexModel(ProjectService projectService, ClockService clockService, ProjectTimerUserService projectTimerUserService)
+        public IndexModel(ProjectService projectService, ClockService clockService, UserService userService)
         {
             _projectService = projectService;
             _clockService = clockService;
-            _projectTimerUserService = projectTimerUserService;
+            _userService = userService;
         }
 
 
@@ -64,7 +65,6 @@ namespace ProjectTimer.Pages.Sessions
             }
 
             //See if any active project exists
-
             var projects = await _projectService.GetProjects(currentUserID);
             if(projects == null)
             {

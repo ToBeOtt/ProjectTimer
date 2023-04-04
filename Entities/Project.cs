@@ -10,16 +10,16 @@ namespace ProjectTimer.Entities
         public ICollection<Clock> Clock { get; set; }
         public ICollection<SavedProjectTime>? SavedProjectTime { get; set; }
 
-        public string ProjectTimeUserId { get; set; }
-        public ProjectTimerUser ProjectTimerUser { get; set; }
+        public string UserId { get; set; }
+        public User User { get; set; }
 
 
 
         public Project() { }
-        public Project(string name, string projectTimeUserId)
+        public Project(string name, string userId)
         {
             Name = name;
-            ProjectTimeUserId = projectTimeUserId;
+            UserId = userId;
         }
     }
 }

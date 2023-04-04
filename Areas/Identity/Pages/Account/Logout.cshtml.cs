@@ -15,11 +15,11 @@ namespace ProjectTimer.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<ProjectTimerUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LogoutModel(SignInManager<ProjectTimerUser> signInManager, ILogger<LogoutModel> logger, IHttpContextAccessor httpContextAccessor)
+        public LogoutModel(SignInManager<User> signInManager, ILogger<LogoutModel> logger, IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
             _logger = logger;

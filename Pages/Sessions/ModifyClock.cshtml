@@ -1,0 +1,18 @@
+﻿@page "{id:int}"
+@model ProjectTimer.Pages.Sessions.ModifyClockModel
+@{
+}
+@if (Model.EditLoad)
+{
+    <form method="post" asp-page-handler="UpdateDescription">
+           <div class="mb-3">
+            <h6 style="text-align: left;">Lägg till ny arbetsbeskrivning</h6>
+            <textarea class="form-control" id="projectDescriptionTextarea" name="taskDescription" rows="4"></textarea>
+            <input type="hidden" name="clockId" value="@Model.Clock.Id">
+        </div>
+        <button type="submit" class="btn btn-outline-secondary">Uppdatera</button>
+    </form>
+    <br>
+    <h6>Tidigare arbetsbeskrivning</h6>
+    <p><em>@Model.Clock.Description</em></p>
+}

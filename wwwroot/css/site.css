@@ -22,6 +22,28 @@ body {
   margin-bottom: 60px;
 }
 
+header {
+    margin-bottom: 3em;
+}
+.svg-nav {
+    width: 3vw;
+    height: 3vh;
+    align-self: center;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.6em;
+}
+
+.nav-item-content {
+    display: flex;
+    align-items: center;
+}
+
+
 .btn {
     margin: 5px;
 }
