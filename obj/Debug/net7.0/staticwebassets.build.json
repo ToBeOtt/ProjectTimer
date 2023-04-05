@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ir+dH45rbCPRAd6iSPaou95nWpVG8rCEBzRZ6aMT2W8=",
+  "Hash": "YNy4bDWO9K/hPwSs/notli14GvKJ7CQpAuqlOrUk+wA=",
   "Source": "ProjectTimer",
   "BasePath": "_content/ProjectTimer",
   "Mode": "Default",
@@ -1088,6 +1088,23 @@
       "OriginalItemSpec": "wwwroot\\css\\projectpages.css"
     },
     {
+      "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\projectsavedtimepages.css",
+      "SourceId": "ProjectTimer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Repositories\\ProjectTimer\\wwwroot\\",
+      "BasePath": "_content/ProjectTimer",
+      "RelativePath": "css/projectsavedtimepages.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\projectsavedtimepages.css"
+    },
+    {
       "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\sessionspages.css",
       "SourceId": "ProjectTimer",
       "SourceType": "Discovered",
@@ -1188,6 +1205,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\pencil-fill.svg"
+    },
+    {
+      "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\search.svg",
+      "SourceId": "ProjectTimer",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Repositories\\ProjectTimer\\wwwroot\\",
+      "BasePath": "_content/ProjectTimer",
+      "RelativePath": "images/search.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\search.svg"
     },
     {
       "Identity": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\trashcan.svg",

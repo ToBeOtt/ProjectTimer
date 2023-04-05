@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectTimer.Data;
+using System.Security.Claims;
 
 namespace ProjectTimer.Services.Common
 {
@@ -17,6 +18,5 @@ namespace ProjectTimer.Services.Common
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
-
     }
 }

@@ -38,8 +38,6 @@ namespace ProjectTimer.Services.Clocks
             _httpContextAccessor = httpContextAccessor;
         }
 
-
-
         // Read / Sorting-services
         public async Task<List<Clock>> GetClockByDate(string userId)
         {

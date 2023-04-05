@@ -1,5 +1,22 @@
-﻿- Ordna metod för att hitta user:
+﻿
+ATT GÖRA:
+- Refaktorera och DRY:a 
+	 - metod för att hitta user
+	 - Save-metod
+	 - Städa input?
 
-- Ordna metod för att normalisera strängar till databasen? Spelar det roll om man letar projekt som "skanska" eller "SKANSKa"?
+- Visa sparad projekttid
+- Sökmetod (helst kalender-vy med datepicker?)
 
+- Unit-testing (om det går)
+
+
+
+
+
+
+
+
+
+KLART:
 - Fixa AddSaveProjectTime (pågående)

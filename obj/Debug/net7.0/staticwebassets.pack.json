@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\projectpages.css"
     },
     {
+      "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\projectsavedtimepages.css",
+      "PackagePath": "staticwebassets\\css\\projectsavedtimepages.css"
+    },
+    {
       "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\css\\sessionspages.css",
       "PackagePath": "staticwebassets\\css\\sessionspages.css"
     },
@@ -31,6 +35,10 @@
     {
       "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\pencil-fill.svg",
       "PackagePath": "staticwebassets\\images\\pencil-fill.svg"
+    },
+    {
+      "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\search.svg",
+      "PackagePath": "staticwebassets\\images\\search.svg"
     },
     {
       "Id": "D:\\Repositories\\ProjectTimer\\wwwroot\\images\\trashcan.svg",

@@ -22,13 +22,12 @@
     padding: 0;
 }
 
-.project-list-container {
-    display: flex;
-    align-content: center;
+.project-icon,
+.project-text {
+    align-items: center;
+    display: inline-block;
+    margin-top: 0; margin-bottom: 0;
 }
-    .project-list-container > p {
-        margin-right: 0.5em;
-    }
 
 
 .nav-item {

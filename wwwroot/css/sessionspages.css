@@ -2,16 +2,16 @@
 }
 #session-left-gutter {
     display: grid;
-    justify-content: center;
+    justify-content: left;
 }
 
 #session-right-gutter {
     display: grid;
-    justify-content: center;
+    justify-content: left;
 }
 
 #ul-start-session {
-    justify-content: center;
+    justify-content: left;
     flex-direction: row;
 }
 

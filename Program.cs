@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using ProjectTimer.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using ProjectTimer.Services.Users;
+using ProjectTimer.Services.SavedProjectTimes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<ClockService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<SavedProjectTimeService>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

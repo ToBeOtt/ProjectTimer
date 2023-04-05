@@ -5,7 +5,7 @@
 }
 <link rel="stylesheet" href="~/css/sessionspages.css" asp-append-version="true" />
 
-<div class="container px-4 text-center">
+<div class="container px-4 text-left">
     <div class="row gx-5">
         <div class="col" id="session-right-gutter"> @*Right gutter-column*@
 
@@ -13,17 +13,17 @@
             <div class="p-3">
                 @if ((HttpContext.Session.GetString("_Id") == null) && (Model.ViewSummary != true))
                 {
-                        <h5 style="text-align: center;">Tryck på ett projekt för att starta timer</h5>
+                        <h5 style="text-align: left;">Tryck på ett projekt för att starta timer</h5>
                         <br />
                         <form method="post" asp-page-handler="StartClock">
-                            <h6 style="text-align: center;">Lägg till arbetsbeskrivning</h6>
+                            <h6 style="text-align: left;">Lägg till arbetsbeskrivning</h6>
                             <div class="mb-3">
                                 <textarea class="form-control" id="projectDescriptionTextarea" name="taskDescription" rows="4"></textarea>
                             </div>
 
                             <br><hr><br>
 
-                            <h6 style="text-align: center;">Dina aktiva projekt</h6>
+                            <h6 style="text-align: left;">Dina aktiva projekt</h6>
                             <ul class="nav" id="ul-start-session">
                                 @foreach (var project in Model.ProjectList)
                                 {
@@ -82,7 +82,7 @@
                 <form method="post" asp-page-handler="EndClock">
                     <div class="mb-3">
                         <button type="submit" class="btn btn-outline-danger" 
-                        name="clockId" value="@Model.Clock.Id">
+                            name="clockId" value="@Model.Clock.Id">
                             Avsluta timer
                         </button>
                     </div>

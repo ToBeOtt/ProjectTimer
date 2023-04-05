@@ -62,6 +62,7 @@ namespace ProjectTimer.Pages.Sessions
             if(currentUser == null)
             {
                 ModelState.AddModelError("", "Kan inte hitta användare");
+                return StatusCode(500, ModelState);
             }
 
             //See if any active project exists
@@ -97,6 +98,7 @@ namespace ProjectTimer.Pages.Sessions
             if (currentUser == null)
             {
                 ModelState.AddModelError("", "Kan inte hitta användare");
+                return StatusCode(500, ModelState);
             }
             
             Clock = await _clockService.CreateClock(taskDescription, pID, currentUserID);
@@ -126,6 +128,7 @@ namespace ProjectTimer.Pages.Sessions
             if (!await _clockService.EndClock(clockId))
             {
                 ModelState.AddModelError("", "Något gick fel vid stoppandet av timern");
+                return StatusCode(500, ModelState);
             }
 
             HttpContext.Session.Remove(SessionKeyId);
@@ -135,9 +138,15 @@ namespace ProjectTimer.Pages.Sessions
         public async Task<IActionResult> OnPostDeleteClock(int deleteId)
         {
             var result = await _clockService.GetClockById(deleteId);
+            if(result == null)
+            {
+                ModelState.AddModelError("", "Timer kunde inte hittas");
+                return StatusCode(500, ModelState);
+            }
             if (!await _clockService.DeleteClock(result))
             {
                 ModelState.AddModelError("", "Det gick inte att radera timer");
+                return StatusCode(500, ModelState);
             }
                 
             return RedirectToPage("index");

@@ -1,4 +1,6 @@
-﻿namespace ProjectTimer.Entities
+﻿using Microsoft.Build.Framework;
+
+namespace ProjectTimer.Entities
 {
     public class Clock
     {
@@ -7,7 +9,7 @@
         public DateTime Started { get; set; }
         public DateTime Ended { get; set; }
         public int TotalMinutes { get; set; }
-
+        
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 

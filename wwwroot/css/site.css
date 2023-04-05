@@ -71,4 +71,14 @@ header {
     justify-items: center;
 }
 
+#select-dropdown {
+    width: auto;
+}
+
+.svg-search {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 1rem;
+}
+
 

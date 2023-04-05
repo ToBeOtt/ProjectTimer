@@ -1,0 +1,110 @@
+﻿@page
+@model ProjectTimer.Pages.SavedProjectTimes.IndexModel
+@{
+}
+<link rel="stylesheet" href="~/css/projectsavedtimepages.css" asp-append-version="true" />
+
+<div class="container px-4">
+    <div class="row gx-5">
+        <div class="col" id="left-gutter">
+            @if (Model.ShowSavedTime == null)
+            {
+                <form method="post" asp-page-handler="UpdateDescription">
+                    <div class="mb-3">
+                        <h5>Spara tid</h5>
+                        <div class="row g-3 mb-3 align-items-center" id="project-saved-form">
+                            <select class="form-select" aria-label="Välj projekt" name="pName" id="select-dropdown">
+                                <option selected>Välj projekt</option>
+                                @foreach (var project in Model.ProjectList)
+                                {
+                                    <option value="@project.Name">@project.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="row g-3 mb-3 align-items-center">
+                            <div class="col-auto" id="time-input-form">
+                                <input type="text" name="time" class="form-control" aria-labelledby="timeDescription" placeholder="0">
+                            </div>
+                            <div class="col-auto">
+                                <span id="timeDescription" class="form-text">
+                                    Ange antal minuter
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3 align-items-center">
+                            <div class="col-auto">
+                                <textarea class="form-control" id="projectDescriptionTextarea" name="note" rows="3" aria-labelledby="noteDescription" placeholder="Notering"></textarea>
+                            </div>
+                            <div class="col-auto">
+                                <span id="noteDescription" class="form-text">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary">Skapa tidspost</button>
+                </form>
+            }
+        </div>
+
+        <div class="col" id="right-gutter">
+          <h5 style="text-align: left;">Välj projekt för att se sparad tid</h5>
+            <form method="post" asp-page-handler="ProjectSavedTimes">
+                <select class="form-select" aria-label="Välj projekt" name="projectSelect" id="select-dropdown">
+                    <option selected>Välj projekt</option>
+                    @foreach (var project in Model.ProjectList)
+                    {
+                        <option value="@project.Id">@project.Name</option>
+                    }
+                </select>
+                <input type="hidden" asp-for="@Model.ProjectList" />
+                <button type="submit" class="btn btn-outline-secondary">Visa tidsposter</button>
+            </form>
+
+@if (Model.SavedTimeProjectList != null)
+{
+    <table class="table">
+        @foreach (var timePost in Model.SavedTimeProjectList)
+        {
+            <tr>
+                <td>
+                    <p class="card-text"><strong>@timePost.SavedTime minuter</strong></p>
+                </td>
+                <td>
+                    <p class="card-text">
+                        <em>
+                            @timePost.Note
+                        </em>
+                    </p>
+                </td>
+                <td>
+                    <form method="Post" asp-page-handler="DeleteTimePost">
+                        <button type="submit" class="btn btn-outline-danger btn-sm"
+                        name="deleteTimePost" value="@timePost.Id">
+                            Radera tidspost
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@*
+<div class="col-auto">
+    <input type="text" name="pName" class="form-control" aria-labelledby="projectDescription" placeholder="Projektnamn">
+</div>
+<div class="col-auto">
+    <span id="projectDescription" class="form-text">
+        Projektets namn behöver överensstämma bokstavsgrannt.
+    </span>
+</div>*@

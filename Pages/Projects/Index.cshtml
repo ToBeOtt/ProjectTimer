@@ -2,7 +2,7 @@
 @model ProjectTimer.Pages.Projects.IndexModel
 @{
 }
-<link rel="stylesheet" href="~/css/projectpages.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/savedprojecttimes.css" asp-append-version="true" />
 
 <div class="container px-4">
   <div class="row gx-5">
@@ -18,38 +18,29 @@
                         <button type="submit" class="btn btn-outline-success">Lägg till projekt</button>
                     </div>
                 </form>
-            @if (Model.projectList != null)
-            {
-                <br />
-                @*<ul class="nav" id="ul-show-project">*@
-                <ul class="list-group list-group-flush">
-                        @foreach (var project in Model.projectList)
-                        {
-
-                        <li class="list-group-item">
-                            <div class="project-list-container">
-                                <p>@project.Name</p>
-                                  <a asp-page="/Projects/ModifyProject" asp-page-handler="Delete" asp-route-id="@project.Id">
-                                        <img type="submit" src="~/images/trashcan.svg" alt="Picture of Trashcan">
-                                  </a>
-                            </div>
-                        </li>
-                        }
-                </ul>
-                }   
+            
      
     </div>
         <div class="col" id="right-gutter">
-            <h5>Här visas sparad tid från olika projekt</h5>
-            <p>Med projekt i olika grupper tydligt avgränsade. Varje project går att visa alla sparade tider. 
-                Dessa kan sedan summeras ihop allihopa eller var för sig. Man kan också radera manuellt ett inlägg manuellt.
-            </p>
-            <a asp-page="/Projects/SaveProjectTime">
-                Spara odebiterad projekttid
-            </a>
-            <a asp-page="/Projects/SaveProjectTime" asp-page-handler="ShowSavedTime">
-                Visa sparade tider
-            </a>
+            @if (Model.projectList != null)
+            {
+                <h5>Lägg till projekt</h5>
+                <ul class="list-group list-group-flush">
+                    @foreach (var project in Model.projectList)
+                    {
+                    <li class="list-group-item">
+                        <p>
+                        <span class="project-text">@project.Name</span>
+                        <span class="project-icon">
+                            <a asp-page="/Projects/ModifyProject" asp-page-handler="Delete" asp-route-id="@project.Id">
+                                <img type="submit" src="~/images/trashcan.svg" alt="Picture of Trashcan">
+                            </a>
+                        </span>
+                        </p>
+                    </li>
+                    }
+                </ul>
+                }   
         </div>  
     </div>
 </div>
